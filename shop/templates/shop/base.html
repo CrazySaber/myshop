@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}我的商城{% endblock%}</title>
+    <link href="{% static 'css/base.css'%}" rel="stylesheet">
+</head>
+<body>
+<div id="header">
+    <a href="/" class="logo">我的商城</a>
+</div>
+
+<div id="subheader">
+    <div class="cart">
+        {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+                已购:
+                <a href="{% url 'cart:cart_detail'%}">
+                    {{ total_items }} 件商品{{ total_items|pluralize }},
+                    ${{ cart.get_total_price }}
+                </a>
+            {% else %}
+                您的购物车为空
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>
